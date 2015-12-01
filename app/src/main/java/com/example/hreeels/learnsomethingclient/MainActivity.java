@@ -1,5 +1,6 @@
 package com.example.hreeels.learnsomethingclient;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hreeels.learnsomethingclient.model.Instructor;
 import com.example.hreeels.learnsomethingclient.server.ServerInterface;
 
 import org.json.JSONException;
@@ -82,7 +84,7 @@ public class MainActivity extends ActionBarActivity implements ServerInterface {
     /**
      * Deactivates all the action listeners for this activity.
      */
-    public void deActivateActionListeners() {
+    public void deactivateActionListeners() {
         iLoginButton.setOnClickListener(null);
     }
 
@@ -90,7 +92,14 @@ public class MainActivity extends ActionBarActivity implements ServerInterface {
      * On click listener for the login button.
      */
     public void loginButtonOnClick() {
-        String lUsername = getUsername();
+        Intent profileActivityIntent = new Intent(MainActivity.this, ProfileActivity.class);
+
+        Instructor lTest = new Instructor("Dwight", "Deugo");
+        profileActivityIntent.putExtra("userInfo", lTest);
+
+        MainActivity.this.startActivity(profileActivityIntent);
+
+    /*    String lUsername = getUsername();
         String lPassword = getPassword();
 
         if(lUsername.isEmpty() && lPassword.isEmpty()) {
@@ -107,7 +116,7 @@ public class MainActivity extends ActionBarActivity implements ServerInterface {
         if (!(lUsername.isEmpty()) && !(lPassword.isEmpty())) {
             validateUserLogin(getUsername(),
                     getPassword());
-        }
+        } */
     }
 
     /**
@@ -142,8 +151,6 @@ public class MainActivity extends ActionBarActivity implements ServerInterface {
             e.printStackTrace();
         }
     }
-
-
 
     /**
      * Update the view's components.
