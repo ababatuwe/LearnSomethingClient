@@ -5,6 +5,8 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.example.hreeels.learnsomethingclient.server.ServerInterface;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
@@ -47,11 +49,15 @@ public class LearnSomethingServer extends AsyncTask<String, Integer, String> {
 
     private ProgressDialog pDlg = null;
 
-    public LearnSomethingServer(int taskType, Context mContext, String processMessage) {
+    private ServerInterface iRecieverClass;
+
+    public LearnSomethingServer(int taskType, Context mContext,
+                                String processMessage, ServerInterface aReceiverClass) {
 
         this.taskType = taskType;
         this.mContext = mContext;
         this.processMessage = processMessage;
+        this.iRecieverClass = aReceiverClass;
 
     }
 
@@ -110,6 +116,8 @@ public class LearnSomethingServer extends AsyncTask<String, Integer, String> {
     protected void onPostExecute(String response) {
 
         pDlg.dismiss();
+
+        iRecieverClass.handleResponse(response);
 
     }
 
