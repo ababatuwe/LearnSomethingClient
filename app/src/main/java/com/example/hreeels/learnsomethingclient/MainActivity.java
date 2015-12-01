@@ -18,7 +18,7 @@ import org.json.JSONObject;
 public class MainActivity extends ActionBarActivity implements ServerInterface {
 
     // Constants
-    private static final String SERVICE_URL = "http://172.17.41.180:8080/com.comp3601.rest/rest/person/sample";
+    private static final String SERVICE_URL = "http://172.17.128.96:8080/demo/rest/instructor";
     private Typeface APP_FONT_REGULAR;
     private Typeface APP_FONT_FIELDS;
 
@@ -93,14 +93,15 @@ public class MainActivity extends ActionBarActivity implements ServerInterface {
         String lUsername = getUsername();
         String lPassword = getPassword();
 
-        if(lUsername.isEmpty()) {
+        if(lUsername.isEmpty() && lPassword.isEmpty()) {
+            Toast.makeText(MainActivity.this, "Please enter a username and a password.",
+                    Toast.LENGTH_SHORT).show();
+        } else if(lUsername.isEmpty()) {
             Toast.makeText(MainActivity.this, "Please enter a username.",
-                    Toast.LENGTH_LONG).show();
-        }
-
-        if(lPassword.isEmpty()) {
+                    Toast.LENGTH_SHORT).show();
+        } else if(lPassword.isEmpty()) {
             Toast.makeText(MainActivity.this, "Please enter a password.",
-                    Toast.LENGTH_LONG).show();
+                    Toast.LENGTH_SHORT).show();
         }
 
         if (!(lUsername.isEmpty()) && !(lPassword.isEmpty())) {
@@ -116,12 +117,12 @@ public class MainActivity extends ActionBarActivity implements ServerInterface {
      * @param aPassword the password to be validated
      */
     public void validateUserLogin(String aUsername, String aPassword) {
-       // String lRequestURL = SERVICE_URL + "/" + aUsername + "/" + aPassword;
+        String lRequestURL = SERVICE_URL + "/" + aUsername + "/" + aPassword;
 
         LearnSomethingServer lServer = new LearnSomethingServer(LearnSomethingServer.GET_TASK,
                 this, "Validating User Credentials", this);
 
-        lServer.execute(new String[]{SERVICE_URL});
+        lServer.execute(new String[]{lRequestURL});
     }
 
     /**
@@ -141,6 +142,8 @@ public class MainActivity extends ActionBarActivity implements ServerInterface {
             e.printStackTrace();
         }
     }
+
+
 
     /**
      * Update the view's components.
