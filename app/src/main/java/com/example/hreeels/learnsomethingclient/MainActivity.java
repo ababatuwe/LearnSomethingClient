@@ -20,7 +20,7 @@ import org.json.JSONObject;
 public class MainActivity extends ActionBarActivity implements ServerInterface {
 
     // Constants
-    private static final String SERVICE_URL = "http://172.17.128.96:8080/demo/rest/instructor";
+    private static final String SERVICE_URL = "http://172.17.156.75:8080/demo/rest/instructor";
     private Typeface APP_FONT_REGULAR;
     private Typeface APP_FONT_FIELDS;
 
@@ -92,14 +92,7 @@ public class MainActivity extends ActionBarActivity implements ServerInterface {
      * On click listener for the login button.
      */
     public void loginButtonOnClick() {
-        Intent profileActivityIntent = new Intent(MainActivity.this, ProfileActivity.class);
-
-        Instructor lTest = new Instructor("Dwight", "Deugo");
-        profileActivityIntent.putExtra("userInfo", lTest);
-
-        MainActivity.this.startActivity(profileActivityIntent);
-
-    /*    String lUsername = getUsername();
+        String lUsername = getUsername();
         String lPassword = getPassword();
 
         if(lUsername.isEmpty() && lPassword.isEmpty()) {
@@ -116,7 +109,7 @@ public class MainActivity extends ActionBarActivity implements ServerInterface {
         if (!(lUsername.isEmpty()) && !(lPassword.isEmpty())) {
             validateUserLogin(getUsername(),
                     getPassword());
-        } */
+        }
     }
 
     /**
@@ -144,12 +137,36 @@ public class MainActivity extends ActionBarActivity implements ServerInterface {
         try{
             JSONObject lJson = new JSONObject(aResponse);
 
-            Toast.makeText(this, "Response Received...", Toast.LENGTH_LONG).show();
+            if(lJson.getLong("counter") == -1) {
+                Toast.makeText(this, "Invalid login info!", Toast.LENGTH_LONG).show();
+                System.out.println("HERE IS THE RESPONSE:\n" + lJson);
+            } else {
+                Toast.makeText(this, "Login Successful!", Toast.LENGTH_LONG).show();
+                System.out.println("HERE IS THE RESPONSE:\n" + lJson);
 
-            System.out.println("HERE IS THE RESPONSE:\n" + lJson);
+                // Open up the profile activity
+                Instructor lInstructor = new Instructor(lJson.getString("firstName"),
+                        lJson.getString("lastName"));
+
+                startProfileActivity(lInstructor);
+            }
         } catch(JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Opens up a new profile screen with the instructor's
+     * information provided.
+     *
+     * @param aInstructor the instructor details for the profile
+     */
+    public void startProfileActivity(Instructor aInstructor) {
+        Intent profileActivityIntent = new Intent(MainActivity.this, ProfileActivity.class);
+
+        profileActivityIntent.putExtra("userInfo", aInstructor);
+
+        MainActivity.this.startActivity(profileActivityIntent);
     }
 
     /**
