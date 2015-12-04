@@ -4,4 +4,8 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_profile">ProfileActivity</string>
+
+    <color name="cyan_a100">#84FFFF</color>
+    <color name="cyan_a200">#18FFFF</color>
+    <color name="cyan_a400">#00E5FF</color>
 </resources>

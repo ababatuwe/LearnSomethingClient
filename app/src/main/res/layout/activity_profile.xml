@@ -26,4 +26,42 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/skills_header"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:textSize="25dp"
+        android:gravity="center"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.005"
+        android:weightSum="1"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.8"
+            android:background="#9FB39B" />
+
+    </LinearLayout>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.9"
+        android:id="@+id/theListView"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="4sp"
+        android:drawSelectorOnTop="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layoutAnimation="@anim/event_list_row_animation"
+        android:scrollbars="none"
+        android:layout_marginTop="10dp"></ListView>
+
 </LinearLayout>

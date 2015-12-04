@@ -20,7 +20,7 @@ import org.json.JSONObject;
 public class MainActivity extends ActionBarActivity implements ServerInterface {
 
     // Constants
-    private static final String SERVICE_URL = "http://172.17.156.75:8080/demo/rest/instructor";
+    private static final String SERVICE_URL = "http://172.17.156.78:8080/demo/rest/instructor";
     private Typeface APP_FONT_REGULAR;
     private Typeface APP_FONT_FIELDS;
 
